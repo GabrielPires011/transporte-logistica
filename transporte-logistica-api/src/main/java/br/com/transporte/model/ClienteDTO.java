@@ -46,7 +46,8 @@ public class ClienteDTO implements Serializable {
         this.endereco.setLatitude(latitude);
         this.endereco.setLongitude(longitude);
         this.endereco.setNumero(numero);
-        this.endereco.setCep(estado);
+        this.endereco.setCep(cep);
         this.endereco.setCidade(cidade);
+        this.endereco.setEstado(estado);
     }
 }
