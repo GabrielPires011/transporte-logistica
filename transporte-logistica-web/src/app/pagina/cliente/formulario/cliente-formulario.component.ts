@@ -16,20 +16,20 @@ export class ClienteFormularioComponent implements OnInit {
     private clienteService: ClienteService
   ) {
     this.formGroup = this.fb.group({
-    id: undefined,
-    nome: ['', [Validators.required]],
-    cnpj: ['', [Validators.required]],
-    endereco: this.fb.group({
       id: undefined,
-      rua: ['', [Validators.required]],
-      numero: ['', [Validators.required]],
-      bairro: [''],
-      cidade: ['', [Validators.required]],
-      estado: ['', [Validators.required]],
-      cep: ['', [Validators.required]],
-      latitude: ['', [Validators.required]],
-      longitude: ['', [Validators.required]],
-    })
+      nome: ['', [Validators.required]],
+      cnpj: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      endereco: this.fb.group({
+        id: undefined,
+        rua: ['', [Validators.required, Validators.maxLength(255)]],
+        numero: ['', [Validators.required, Validators.maxLength(10)]],
+        bairro: ['', [Validators.required, Validators.maxLength(255)]],
+        cidade: ['', [Validators.required, Validators.maxLength(255)]],
+        estado: ['', [Validators.required, Validators.maxLength(2)]],
+        cep: ['', [Validators.required, Validators.maxLength(8)]],
+        latitude: ['', [Validators.required]],
+        longitude: ['', [Validators.required]],
+      })
   });
   }
 
