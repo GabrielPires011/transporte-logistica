@@ -5,6 +5,7 @@ import br.com.transporte.domain.Endereco;
 import br.com.transporte.exception.NotFoundException;
 import br.com.transporte.model.ClienteDTO;
 import br.com.transporte.repository.ClienteRepository;
+import br.com.transporte.repository.EnderecoRepository;
 import br.com.transporte.service.ClienteService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,8 @@ import org.springframework.util.ObjectUtils;
 public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteRepository clienteRepository;
+
+    private final EnderecoRepository enderecoRepository;
 
     private final ModelMapper modelMapper;
 

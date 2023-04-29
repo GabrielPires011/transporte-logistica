@@ -13,10 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +83,7 @@ class ClienteServiceImplTeste {
         when(clienteRepository.save(cliente)).thenReturn(cliente);
         when(modelMapper.map(cliente, ClienteDTO.class)).thenReturn(clienteDTO);
 
-        ClienteDTO resultado = clienteService.criarCliente(clienteDTO);
+        var resultado = clienteService.criarCliente(clienteDTO);
 
         assertNotNull(resultado);
         assertEquals(clienteDTO.getId(), resultado.getId());
@@ -112,19 +110,19 @@ class ClienteServiceImplTeste {
 
     @Test
     void testeAtualizarCliente() {
-        ClienteDTO clienteDTO = new ClienteDTO();
+        var clienteDTO = new ClienteDTO();
         clienteDTO.setId(1L);
         clienteDTO.setNome("Novo Nome");
-        EnderecoDTO enderecoDTO = new EnderecoDTO();
+        var enderecoDTO = new EnderecoDTO();
         enderecoDTO.setRua("Nova Rua");
         enderecoDTO.setNumero("123");
         clienteDTO.setEndereco(enderecoDTO);
 
-        Endereco endereco = new Endereco();
+        var endereco = new Endereco();
         endereco.setRua("Rua Antiga");
         endereco.setNumero("123");
 
-        Cliente cliente = new Cliente();
+        var cliente = new Cliente();
         cliente.setId(1L);
         cliente.setNome("Nome Antigo");
         cliente.setEndereco(endereco);
@@ -150,8 +148,8 @@ class ClienteServiceImplTeste {
 
     @Test
     public void testeDeletarCliente() throws NotFoundException {
-        Long idCliente = 1L;
-        Cliente cliente = new Cliente();
+        var idCliente = 1L;
+        var cliente = new Cliente();
         cliente.setId(1L);
 
         when(clienteRepository.findById(idCliente)).thenReturn(Optional.of(cliente));
@@ -184,12 +182,10 @@ class ClienteServiceImplTeste {
 
     @Test
     public void testeBuscarFiltroPaginacao() {
-        String nome = "Nome";
-        Long id = 1L;
-        Long cnpj = 123456789L;
-        int page = 0;
-        int size = 10;
-        Pageable pageable = PageRequest.of(page, size);
+        var nome = "Nome";
+        var id = 1L;
+        var cnpj = 123456789L;
+        var pageable = PageRequest.of(0, 10);
 
         List<ClienteDTO> clientes = new ArrayList<>();
         clientes.add(clienteDTO);
@@ -197,7 +193,7 @@ class ClienteServiceImplTeste {
         when(clienteRepository.buscarFiltroPaginacao(nome, id, cnpj, pageable))
                 .thenReturn(new PageImpl<>(clientes));
 
-        Page<ClienteDTO> resultado = clienteService.buscarFiltroPaginacao(nome, id, cnpj, pageable);
+        var resultado = clienteService.buscarFiltroPaginacao(nome, id, cnpj, pageable);
 
         assertNotNull(resultado);
         assertEquals(1, resultado.getContent().size());

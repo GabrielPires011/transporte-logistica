@@ -17,6 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("/cliente")
 public class ClienteController {
     private final ClienteServiceImpl clienteService;
@@ -50,7 +51,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.buscarPeloId(id));
     }
 
-    @GetMapping("/clientes")
+    @GetMapping("/filtro-paginacao")
     @ApiOperation(value = "Busca Clientes de Acordo Com os Filtros Especificados")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Parâmetros inválidos")

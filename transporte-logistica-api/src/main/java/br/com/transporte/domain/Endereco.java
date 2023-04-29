@@ -20,7 +20,7 @@ public class Endereco implements Serializable {
     private static final long serialVersionUID = 8030712584345409878L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     @Column(name = "rua", nullable = false)

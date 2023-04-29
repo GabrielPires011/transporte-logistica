@@ -20,7 +20,7 @@ public class Cliente implements Serializable {
     private static final long serialVersionUID = 6721223319380550112L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     @Column(name = "nome", nullable = false)
@@ -29,7 +29,7 @@ public class Cliente implements Serializable {
     @Column(name = "cnpj", nullable = false)
     public Long cnpj;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_endereco", nullable = false)
     public Endereco endereco;
 }
