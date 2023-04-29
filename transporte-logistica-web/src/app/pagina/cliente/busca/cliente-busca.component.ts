@@ -40,6 +40,7 @@ export class ClienteBuscaComponent implements OnInit {
       .subscribe(
         () => {
           this.toastr.success('Cliente excluido com sucesso');
+          this.buscarClientes();
         },
         () => {
           this.toastr.error('Erro em excluir Cliente');

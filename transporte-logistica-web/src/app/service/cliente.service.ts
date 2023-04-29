@@ -33,12 +33,16 @@ export class ClienteService {
     return this.http.post<ClienteModel>(this.BASE_URL, cliente);
   }
 
-  atualizarCliente(id: number, cliente: ClienteModel): Observable<ClienteModel> {
+  atualizarCliente(cliente: ClienteModel): Observable<ClienteModel> {
     return this.http.put<ClienteModel>(`${this.BASE_URL}`, cliente);
   }
 
   excluirCliente(id: number): Observable<void> {
     return this.http.delete<void>(`${this.BASE_URL}/${id}`);
+  }
+
+  buscarPeloId(id: number): Observable<ClienteModel> {
+    return this.http.get<ClienteModel>(`${this.BASE_URL}/${id}`);
   }
 
 }

@@ -47,7 +47,7 @@
     <ng-container matColumnDef="acoes">
       <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
       <mat-cell *matCellDef="let cliente">
-        <a mat-icon-button [routerLink]="['/clientes', cliente.id]">
+        <a mat-icon-button [routerLink]="['/cliente/editar/', cliente.id]">
           <mat-icon>editar</mat-icon>
         </a>
         <a mat-icon-button (click)="excluirCliente(cliente.id)">

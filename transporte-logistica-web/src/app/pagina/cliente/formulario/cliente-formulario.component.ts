@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ClienteModel} from "../../../model/cliente.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClienteService} from "../../../service/cliente.service";
+import {ToastrService} from "ngx-toastr";
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-cliente-formulario',
@@ -10,10 +12,15 @@ import {ClienteService} from "../../../service/cliente.service";
 })
 export class ClienteFormularioComponent implements OnInit {
   formGroup: FormGroup;
+  titulo = "";
+  idCliente: any = null;
 
   constructor(
     private fb: FormBuilder,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private toastr: ToastrService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.formGroup = this.fb.group({
       id: undefined,
@@ -30,10 +37,49 @@ export class ClienteFormularioComponent implements OnInit {
         latitude: ['', [Validators.required]],
         longitude: ['', [Validators.required]],
       })
-  });
+    });
   }
 
   ngOnInit(): void {
+    this.idCliente = this.activatedRoute.snapshot.paramMap.get('id');
+    if (this.idCliente) {
+      this.titulo = "Editar";
+      this.buscarCliente();
+    } else {
+      this.titulo = "Novo";
+    }
+  }
+
+  buscarCliente() {
+    this.clienteService.buscarPeloId(this.idCliente)
+      .subscribe(
+        (cliente: ClienteModel) => {
+          this.preencherForm(cliente)
+        },
+        () => {
+          this.toastr.error('Erro em buscar Cliente');
+        }
+      );
+  }
+
+  preencherForm(cliente: ClienteModel) {
+    this.formGroup.setValue({
+      id: cliente.id,
+      nome: cliente.nome,
+      cnpj: cliente.cnpj,
+      endereco: {
+        id: cliente.endereco?.id,
+        rua: cliente.endereco?.rua,
+        numero: cliente.endereco?.numero,
+        bairro: cliente.endereco?.bairro,
+        cidade: cliente.endereco?.cidade,
+        estado: cliente.endereco?.estado,
+        cep: cliente.endereco?.cep,
+        latitude: cliente.endereco?.latitude,
+        longitude: cliente.endereco?.longitude
+      }
+    });
+    this.formGroup.get('cnpj')?.disable();
   }
 
   salvar(): void {
@@ -42,12 +88,28 @@ export class ClienteFormularioComponent implements OnInit {
       return;
     }
     const cliente: ClienteModel = this.formGroup.value;
-    this.clienteService.criarCliente(cliente)
-      .subscribe(() => {
-        console.log('Cliente criado com sucesso');
-        this.formGroup.reset();
-      }, error => {
-        console.error('Erro ao criar cliente', error);
-      });
+    if (this.idCliente) {
+      this.clienteService.atualizarCliente(cliente)
+        .subscribe(
+          () => {
+            this.toastr.success('Cliente salvo com sucesso');
+            this.router.navigate(['/cliente']);
+          },
+          () => {
+            this.toastr.error('Erro em salvo Cliente');
+          }
+        );
+    } else {
+      this.clienteService.criarCliente(cliente)
+        .subscribe(
+          () => {
+            this.toastr.success('Cliente salvo com sucesso');
+            this.router.navigate(['/cliente']);
+          },
+          () => {
+            this.toastr.error('Erro em salvo Cliente');
+          }
+        );
+    }
   }
 }
