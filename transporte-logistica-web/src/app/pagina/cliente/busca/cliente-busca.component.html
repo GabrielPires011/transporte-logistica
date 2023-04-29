@@ -1,0 +1,49 @@
+<mat-form-field appearance="fill">
+  <mat-label>Nome</mat-label>
+  <input matInput [(ngModel)]="nome" (keyup.enter)="buscarClientes()" placeholder="Nome">
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>ID</mat-label>
+  <input matInput [(ngModel)]="id" (keyup.enter)="buscarClientes()" placeholder="ID">
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>CNPJ</mat-label>
+  <input matInput [(ngModel)]="cnpj" (keyup.enter)="buscarClientes()" placeholder="CNPJ">
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="buscarClientes()">Buscar</button>
+
+<mat-table [dataSource]="clientes" matSort>
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+    <mat-cell *matCellDef="let cliente">{{cliente.id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="nome">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
+    <mat-cell *matCellDef="let cliente">{{cliente.nome}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="cnpj">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>CNPJ</mat-header-cell>
+    <mat-cell *matCellDef="let cliente">{{cliente.cnpj}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="acoes">
+    <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+    <mat-cell *matCellDef="let cliente">
+      <a mat-icon-button [routerLink]="['/clientes', cliente.id]">
+        <mat-icon>editar</mat-icon>
+      </a>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['id', 'nome', 'cnpj', 'acoes']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['id', 'nome', 'cnpj', 'acoes'];"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [length]="totalClientes"
+               (page)="paginar($event)">
+</mat-paginator>

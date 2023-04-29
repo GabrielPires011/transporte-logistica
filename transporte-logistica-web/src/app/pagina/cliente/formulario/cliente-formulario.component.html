@@ -1,0 +1,93 @@
+<mat-card class="card">
+  <mat-card-title class="card-header">Novo Cliente</mat-card-title>
+  <mat-card-content class="card-body">
+    <button (click)="salvar()">Salvar</button>
+  </mat-card-content>
+</mat-card>
+<mat-card class="card">
+  <form [formGroup]="formGroup">
+    <div class="card-body">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome">
+        <mat-error *ngIf="formGroup.get('nome')?.invalid && formGroup.get('nome')?.touched">O nome é obrigatório.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>CNPJ</mat-label>
+        <input matInput formControlName="cnpj">
+        <mat-error *ngIf="formGroup.get('cnpj')?.invalid && formGroup.get('cnpj')?.touched">O CNPJ é obrigatório.
+        </mat-error>
+      </mat-form-field>
+
+      <div formGroupName="endereco">
+        <mat-form-field appearance="outline">
+          <mat-label>Rua</mat-label>
+          <input matInput formControlName="rua">
+          <mat-error *ngIf="formGroup.get('rua')?.invalid && formGroup.get('rua')?.touched">O Rua
+            é
+            obrigatório.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Número</mat-label>
+          <input matInput formControlName="numero">
+          <mat-error *ngIf="formGroup.get('numero')?.invalid && formGroup.get('numero')?.touched">O
+            Número
+            é
+            obrigatório.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Bairro</mat-label>
+          <input matInput formControlName="bairro">
+          <mat-error *ngIf="formGroup.get('bairro')?.invalid && formGroup.get('bairro')?.touched">A
+            Bairro
+            é
+            obrigatória.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cidade</mat-label>
+          <input matInput formControlName="cidade">
+          <mat-error *ngIf="formGroup.get('cidade')?.invalid && formGroup.get('cidade')?.touched">O
+            Cidade
+            é
+            obrigatório.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Estado:</mat-label>
+          <input matInput formControlName="estado">
+          <mat-error *ngIf="formGroup.get('estado')?.invalid && formGroup.get('estado:')?.touched">O
+            Estado é
+            obrigatório.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cep:</mat-label>
+          <input matInput formControlName="cep">
+          <mat-error *ngIf="formGroup.get('cep')?.invalid && formGroup.get('cep')?.touched">O CEP é
+            obrigatório.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Latitude</mat-label>
+          <input matInput formControlName="latitude">
+          <mat-error *ngIf="formGroup.get('latitude')?.invalid && formGroup.get('latitude')?.touched">
+            A latitude é obrigatória.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Longitude</mat-label>
+          <input matInput formControlName="longitude">
+          <mat-error *ngIf="formGroup.get('longitude')?.invalid && formGroup.get('longitude')?.touched">
+            A longitude é obrigatória.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-card>
+
