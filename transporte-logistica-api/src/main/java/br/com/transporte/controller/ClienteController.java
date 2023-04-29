@@ -63,4 +63,14 @@ public class ClienteController {
             Pageable pageable) {
         return ResponseEntity.ok(clienteService.buscarFiltroPaginacao(nome, id, cnpj, pageable));
     }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "Exluir Cliente Pelo ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Erro em excluir cliente")
+    })
+    public ResponseEntity deletarCliente(@PathVariable Long id) throws NotFoundException {
+        clienteService.deletarCliente(id);
+        return ResponseEntity.ok("");
+    }
 }
