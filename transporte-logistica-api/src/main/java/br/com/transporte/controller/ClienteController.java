@@ -67,6 +67,7 @@ public class ClienteController {
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Exluir Cliente Pelo ID")
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Cliente excluido com sucesso"),
             @ApiResponse(code = 400, message = "Erro em excluir cliente")
     })
     public ResponseEntity deletarCliente(@PathVariable Long id) throws NotFoundException {

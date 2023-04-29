@@ -29,7 +29,7 @@ public class Cliente implements Serializable {
     @Column(name = "cnpj", nullable = false)
     public Long cnpj;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "id_endereco", nullable = false)
     public Endereco endereco;
 }
