@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {ClienteRoutingModule} from "./pagina/cliente/cliente.routing.module";
 import {AppRoutingModule} from "./app.routing.module";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {AppRoutingModule} from "./app.routing.module";
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

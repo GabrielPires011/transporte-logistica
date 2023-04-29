@@ -1,1 +1,25 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  color: #fff;
+  font-size: 16px;
+  padding: 15px 20px;
+  border-radius: 4px;
+}
+
+.toast-success {
+  background-color: #5cb85c;
+}
+
+.toast-error {
+  background-color: #d9534f;
+}
+
+.toast-info {
+  background-color: #5bc0de;
+}
+

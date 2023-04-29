@@ -22,6 +22,7 @@
     "@googlemaps/js-api-loader": "^1.15.1",
     "@types/googlemaps": "^3.43.3",
     "bootstrap": "^5.2.3",
+    "ngx-toastr": "^16.1.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

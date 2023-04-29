@@ -1,27 +1,28 @@
 <mat-card-title>Buscar Clientes</mat-card-title>
 
-<div class="row mb-3">
-  <div class="col-12 col-md-4 mb-1">
-    <mat-form-field appearance="outline">
-      <mat-label>Nome</mat-label>
-      <input matInput [(ngModel)]="nome" (keyup.enter)="buscarClientes()" placeholder="Nome">
-    </mat-form-field>
-  </div>
-  <div class="col-12 col-md-4 mb-1">
-    <mat-form-field appearance="outline">
-      <mat-label>ID</mat-label>
-      <input matInput [(ngModel)]="id" (keyup.enter)="buscarClientes()" placeholder="ID">
-    </mat-form-field>
-  </div>
-  <div class="col-12 col-md-4 mb-3">
-    <mat-form-field appearance="outline">
-      <mat-label>CNPJ</mat-label>
-      <input matInput [(ngModel)]="cnpj" (keyup.enter)="buscarClientes()" placeholder="CNPJ">
-    </mat-form-field>
-  </div>
-  <div class="col-12 col-md-4 mb-3">
-    <button mat-raised-button color="primary" (click)="buscarClientes()">Buscar</button>
-    <button mat-raised-button color="accent" class="create-button" routerLink="/cliente/novo">Criar Cliente</button>
+<div class="form-row">
+  <div class="col-xs-12">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput [(ngModel)]="nome" (keyup.enter)="buscarClientes()" placeholder="Nome">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>ID</mat-label>
+          <input matInput [(ngModel)]="id" (keyup.enter)="buscarClientes()" placeholder="ID">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>CNPJ</mat-label>
+          <input matInput [(ngModel)]="cnpj" (keyup.enter)="buscarClientes()" placeholder="CNPJ">
+        </mat-form-field>
+
+      <div class="col-12 col-md-6 mb-3">
+        <button mat-raised-button color="primary" (click)="buscarClientes()">Buscar</button>
+        <button mat-raised-button color="accent" class="create-button" routerLink="/cliente/novo">Criar Cliente</button>
+      </div>
   </div>
 </div>
 
@@ -48,6 +49,9 @@
       <mat-cell *matCellDef="let cliente">
         <a mat-icon-button [routerLink]="['/clientes', cliente.id]">
           <mat-icon>editar</mat-icon>
+        </a>
+        <a mat-icon-button (click)="excluirCliente(cliente.id)">
+          <mat-icon>delete</mat-icon>
         </a>
       </mat-cell>
     </ng-container>

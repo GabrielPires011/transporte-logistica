@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ClienteModel} from '../../../model/cliente.model';
 import {ClienteService} from "../../../service/cliente.service";
-import { PageEvent } from '@angular/material/paginator';
+import {PageEvent} from '@angular/material/paginator';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-cliente-busca',
@@ -19,7 +20,8 @@ export class ClienteBuscaComponent implements OnInit {
   currentPage: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 50];
 
-  constructor(private clienteService: ClienteService) { }
+  constructor(private clienteService: ClienteService, private toastr: ToastrService) {
+  }
 
   ngOnInit(): void {
     this.buscarClientes();
@@ -31,6 +33,17 @@ export class ClienteBuscaComponent implements OnInit {
         this.clientes = page.content;
         this.totalClientes = page.totalElements;
       });
+  }
+
+  excluirCliente(id: any): void {
+    this.clienteService.excluirCliente(id)
+      .subscribe(
+        () => {
+          this.toastr.success('Cliente excluido com sucesso');
+        },
+        () => {
+          this.toastr.error('Erro em excluir Cliente');
+        });
   }
 
   paginar(event: PageEvent): void {
