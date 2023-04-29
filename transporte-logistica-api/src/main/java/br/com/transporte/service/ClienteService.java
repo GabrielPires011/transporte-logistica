@@ -8,13 +8,13 @@ import org.springframework.data.domain.Pageable;
 public interface ClienteService {
 
 
-    public ClienteDTO salvarCliente(ClienteDTO clienteDTO) throws NotFoundException;
+    ClienteDTO criarCliente(ClienteDTO clienteDTO) throws NotFoundException;
 
-    public ClienteDTO atualizarCliente(ClienteDTO clienteDTO) throws NotFoundException;
+    ClienteDTO atualizarCliente(ClienteDTO clienteDTO) throws NotFoundException;
 
-    public void deletarCliente(Long idCliente) throws NotFoundException;
+    void deletarCliente(Long idCliente) throws NotFoundException;
 
-    public ClienteDTO buscarPeloId(Long id) throws NotFoundException;
+    ClienteDTO buscarPeloId(Long id) throws NotFoundException;
 
-    public Page<ClienteDTO> buscarFiltroPaginacao(String nome, Long id, Long cnpj, Pageable pageable);
+    Page<ClienteDTO> buscarFiltroPaginacao(String nome, Long id, Long cnpj, Pageable pageable);
 }

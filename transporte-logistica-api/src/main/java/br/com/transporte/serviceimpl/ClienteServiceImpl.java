@@ -22,9 +22,8 @@ public class ClienteServiceImpl implements ClienteService {
 
     private final ModelMapper modelMapper;
 
-    @Override
     @Transactional
-    public ClienteDTO salvarCliente(ClienteDTO clienteDTO) throws NotFoundException {
+    public ClienteDTO criarCliente(ClienteDTO clienteDTO) throws NotFoundException {
         if (!ObjectUtils.isEmpty(clienteRepository.buscarPorCNPJ(clienteDTO.getCnpj()))) throw new NotFoundException("CNPJ já cadastrado na base de dados.");
         return modelMapper.map(clienteRepository.save(modelMapper.map(clienteDTO, Cliente.class)), ClienteDTO.class);
     }
