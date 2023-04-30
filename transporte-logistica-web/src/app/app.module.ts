@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import {ClienteRoutingModule} from "./pagina/cliente/cliente.routing.module";
 import {AppRoutingModule} from "./app.routing.module";
 import {ToastrModule} from "ngx-toastr";
 

@@ -15,11 +15,13 @@ import { ClienteFormularioComponent } from './formulario/cliente-formulario.comp
 import {RouterLink} from "@angular/router";
 import {ClienteRoutingModule} from "./cliente.routing.module";
 import {MatCardModule} from "@angular/material/card";
+import {MapComponent} from "../../shared/mapa/map.component";
 
 @NgModule({
   declarations: [
     ClienteBuscaComponent,
-    ClienteFormularioComponent
+    ClienteFormularioComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

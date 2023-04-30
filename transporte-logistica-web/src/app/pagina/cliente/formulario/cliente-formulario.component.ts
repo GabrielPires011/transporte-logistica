@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ClienteModel} from "../../../model/cliente.model";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ClienteService} from "../../../service/cliente.service";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from '@angular/router';
@@ -34,8 +34,8 @@ export class ClienteFormularioComponent implements OnInit {
         cidade: ['', [Validators.required, Validators.maxLength(255)]],
         estado: ['', [Validators.required, Validators.maxLength(2)]],
         cep: ['', [Validators.required, Validators.maxLength(8)]],
-        latitude: ['', [Validators.required]],
-        longitude: ['', [Validators.required]],
+        latitude: ['', [Validators.required, Validators.min(-90), Validators.max(90)]],
+        longitude: ['', [Validators.required, Validators.min(-180), Validators.max(180)]],
       })
     });
   }
@@ -45,6 +45,11 @@ export class ClienteFormularioComponent implements OnInit {
     if (this.idCliente) {
       this.titulo = "Editar";
       this.buscarCliente();
+      this.formGroup.valueChanges.subscribe((values) => {
+        // atualiza valores de entrada do componente filho
+        this.latitude.setValue(values.latitude);
+        this.longitude.setValue(values.longitude);
+      });
     } else {
       this.titulo = "Novo";
     }
@@ -111,5 +116,13 @@ export class ClienteFormularioComponent implements OnInit {
           }
         );
     }
+  }
+
+  get latitude(): FormControl {
+    return this.formGroup.get('latitude') as FormControl;
+  }
+
+  get longitude(): FormControl {
+    return this.formGroup.get('longitude') as FormControl;
   }
 }
