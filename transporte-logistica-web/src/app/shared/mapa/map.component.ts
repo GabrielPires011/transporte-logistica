@@ -1,16 +1,31 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import * as L from 'leaflet';
+import { FormBuilder, FormGroup} from '@angular/forms';
+import {DomUtil} from "leaflet";
+import get = DomUtil.get;
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements AfterViewInit, OnChanges {
   private map!: L.Map;
   private marker!: L.Marker;
-  latitude: number = -15.826691;
-  longitude: number = -47.921820;
+  @Input() latitude!: number;
+  @Input() longitude!: number;
+  @Input() form!: FormGroup;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.map && changes && changes['latitude'] && changes['latitude'].currentValue
+      && changes['longitude'] && changes['longitude'].currentValue) {
+      const newLatLng = L.latLng(changes['latitude'].currentValue, changes['longitude'].currentValue);
+      this.marker.setLatLng(newLatLng);
+      this.map.panTo(newLatLng);
+      this.form.get('endereco.latitude')?.setValue(this.latitude);
+      this.form.get('endereco.longitude')?.setValue(this.longitude);
+    }
+  }
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -34,7 +49,7 @@ export class MapComponent implements AfterViewInit {
     this.marker = L.marker([this.latitude, this.longitude], { icon: icon }).addTo(this.map);
   }
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngAfterViewInit(): void {
     this.initMap();
@@ -42,19 +57,15 @@ export class MapComponent implements AfterViewInit {
   }
 
   onMapClick(e: L.LeafletMouseEvent) {
-    if (this.marker) {
-      this.marker.remove();
-    }
+    this.atualizarCoordenadas(e.latlng.lat, e.latlng.lng);
+  }
 
-    this.latitude = e.latlng.lat;
-    this.longitude = e.latlng.lng;
-    const iconUrl = 'https://cdn.pixabay.com/photo/2017/07/25/01/22/cat-2536662_960_720.jpg';
-    const icon = L.icon({
-      iconUrl: iconUrl,
-      iconSize: [50, 50],
-      iconAnchor: [25, 50]
+  private atualizarCoordenadas(lat: number, lng: number) {
+    this.latitude = lat;
+    this.longitude = lng;
+    this.ngOnChanges({
+      latitude: new SimpleChange(this.latitude, lat, this.marker === undefined),
+      longitude: new SimpleChange(this.longitude, lng, this.marker === undefined)
     });
-    this.marker = L.marker([this.latitude, this.longitude], { icon: icon }).addTo(this.map);
   }
 }
-

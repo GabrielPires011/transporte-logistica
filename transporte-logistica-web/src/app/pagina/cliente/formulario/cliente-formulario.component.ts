@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ClienteModel} from "../../../model/cliente.model";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClienteService} from "../../../service/cliente.service";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from '@angular/router';
@@ -45,11 +45,6 @@ export class ClienteFormularioComponent implements OnInit {
     if (this.idCliente) {
       this.titulo = "Editar";
       this.buscarCliente();
-      this.formGroup.valueChanges.subscribe((values) => {
-        // atualiza valores de entrada do componente filho
-        this.latitude.setValue(values.latitude);
-        this.longitude.setValue(values.longitude);
-      });
     } else {
       this.titulo = "Novo";
     }
@@ -118,11 +113,11 @@ export class ClienteFormularioComponent implements OnInit {
     }
   }
 
-  get latitude(): FormControl {
-    return this.formGroup.get('latitude') as FormControl;
+  get latitude(): number {
+    return this.formGroup.get('endereco')?.get('latitude')?.value as number;
   }
 
-  get longitude(): FormControl {
-    return this.formGroup.get('longitude') as FormControl;
+  get longitude(): number {
+    return this.formGroup.get('endereco')?.get('longitude')?.value as number;
   }
 }
